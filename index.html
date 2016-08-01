@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="IDES Data Preparation - Unix : The IDES Data Preparation Unix repository demonstrates a sample shell script for FATCA data packaging.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>IDES Data Preparation - Unix</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/hahnemann/IDES-Data-Preparation-Unix">View on GitHub</a>
+
+          <h1 id="project_title">IDES Data Preparation - Unix</h1>
+          <h2 id="project_tagline">The IDES Data Preparation Unix repository demonstrates a sample shell script for FATCA data packaging.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/hahnemann/IDES-Data-Preparation-Unix/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/hahnemann/IDES-Data-Preparation-Unix/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>
+<a id="ides-data-preparation" class="anchor" href="#ides-data-preparation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IDES Data Preparation</h2>
+
+<p>The <a href="https://www.irs.gov/businesses/corporations/international-data-exchange-service">International Data Exchange Service (IDES)</a> is a secure managed file transfer service that allows financial institutions and tax authorities to securely send information on financial accounts held by U.S. taxpayers in accordance with the <a href="https://www.irs.gov/businesses/corporations/foreign-account-tax-compliance-act-fatca">Foreign Account Tax Compliance Act (FATCA)</a>. Files transmitted via IDES must be encrypted and packaged in accordance with published <a href="https://www.irs.gov/businesses/corporations/ides-data-transmission-and-file-preparation">data preparation instructions</a>. The data preparation process is an important step to ensure that information transmitted via IDES conforms to U.S security standards to safeguard sensitive information.</p>
+
+<p>The IDES Data Preparation Unix repository contains a sample shell script for packaging FATCA data in Unix. It has been tested in TBD and OS X El Capitan. Software frameworks for packaging FATCA data using <a href="http://irsgov.github.io/IDES-Data-Preparation-Dot-Net/">.NET</a> and <a href="http://irsgov.github.io/IDES-Data-Preparation-Java/">Java</a> are also available. Please note that there are many open market tools that produce the same results; however, the IRS does not endorse any commercial products, including any operating systems or software frameworks.</p>
+
+<p>The shell script in this repository can create a FATCA data packet and decrypt a Notification. While it does not validate any of the XML, it can digitally sign, encrypt, compress and archive a FATCA data packet into a compliant .ZIP file. Furthermore, the shell script currently does not work for a Model 1 Option 2 FATCA Entity.</p>
+
+<h3>
+<a id="file-permissions" class="anchor" href="#file-permissions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>File Permissions</h3>
+
+<p>Using terminal, modify the access permissions for the shell scripts to your needs. For example, set owner read, write and execute permissions:</p>
+
+<pre><code>chmod 700 fatca_package.sh
+chmod 700 fatca_unpack.sh
+chmod 700 sample_package.sh
+chmod 700 sample_unpack.sh
+</code></pre>
+
+<p>For other access permission options, consult the <code>chmod man</code> pages.</p>
+
+<h3>
+<a id="data-packaging" class="anchor" href="#data-packaging" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Packaging</h3>
+
+<p>To package FATCA data, update the following environment variables in <code>sample_package.sh</code>. The script <code>sample_package.sh</code> is a wrapper for <code>fatca_package.sh</code>:</p>
+
+<pre><code>UNSIGNED_XML_IN = yourUnsignedPayload.xml
+RECEIVER_PUBLIC_CERT_IN = theReceiverPublic.cer
+MY_PRIVATE_KEYSTORE_PKCS12_IN = yourPrivateKey.p12
+MY_PRIVATE_KEYSTORE_PWD_IN = yourPrivateKeyPassword
+</code></pre>
+
+<p>Update the metadata information. For example, to send a FATCA Report for tax year 2015, with no revision indicator:</p>
+
+<pre><code>FATCAEntitySenderId = yourGIIN
+FATCAEntityReceiverId = theReceiverGIIN
+TaxYear = 2015
+FATCAEntCommunicationTypeCd = RPT
+FileRevisionInd = false
+SenderContactEmailAddressTxt = yourEmail@yourDomain.com
+</code></pre>
+
+<p>Save and execute the script.</p>
+
+<h3>
+<a id="data-unpacking" class="anchor" href="#data-unpacking" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data Unpacking</h3>
+
+<p>To unpack a FATCA data packet (for example, to open and read a Notification) update the following environment variables in <code>sample_unpack.sh</code>. The script <code>sample_unpack.sh</code> is a wrapper for <code>fatca_unpack.sh</code>:</p>
+
+<pre><code>FATCA_PKG_IN = theDataPacketYouReceived.zip
+MY_PRIVATE_KEYSTORE_PKCS12_IN = yourPrivateKey.p12
+MY_PRIVATE_KEYSTORE_PWD_IN = yourPrivateKeyPassword
+</code></pre>
+
+<p>As an option, you can also validate the sender's signature:</p>
+
+<pre><code>SENDER_PUBLIC_CERT_IN = theSenderPublic.cer
+</code></pre>
+
+<p>Save and execute the script.</p>
+
+<h3>
+<a id="disclaimer" class="anchor" href="#disclaimer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Disclaimer:</h3>
+
+<p>We waive copyright and related rights in the work worldwide through the CC0 1.0 Universal public domain dedication. Unless expressly stated otherwise, the person who associated a work with this deed makes no warranties about the work, and disclaims liability for all uses of the work, to the fullest extent permitted by applicable law. When using or citing the work, you should not imply endorsement by the author or the affirmer.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">IDES Data Preparation - Unix maintained by <a href="https://github.com/hahnemann">hahnemann</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
