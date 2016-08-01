@@ -58,20 +58,20 @@ chmod 700 sample_unpack.sh
 
 <p>To package FATCA data, update the following environment variables in <code>sample_package.sh</code>. The script <code>sample_package.sh</code> is a wrapper for <code>fatca_package.sh</code>:</p>
 
-<pre><code>UNSIGNED_XML_IN = yourUnsignedPayload.xml
-RECEIVER_PUBLIC_CERT_IN = theReceiverPublic.cer
-MY_PRIVATE_KEYSTORE_PKCS12_IN = yourPrivateKey.p12
-MY_PRIVATE_KEYSTORE_PWD_IN = yourPrivateKeyPassword
+<pre><code>UNSIGNED_XML_IN=yourUnsignedPayload.xml
+RECEIVER_PUBLIC_CERT_IN=theReceiverPublic.cer
+MY_PRIVATE_KEYSTORE_PKCS12_IN=yourPrivateKey.p12
+MY_PRIVATE_KEYSTORE_PWD_IN=yourPrivateKeyPassword
 </code></pre>
 
 <p>Update the metadata information. For example, to send a FATCA Report for tax year 2015, with no revision indicator:</p>
 
-<pre><code>FATCAEntitySenderId = yourGIIN
-FATCAEntityReceiverId = theReceiverGIIN
-TaxYear = 2015
-FATCAEntCommunicationTypeCd = RPT
-FileRevisionInd = false
-SenderContactEmailAddressTxt = yourEmail@yourDomain.com
+<pre><code>FATCAEntitySenderId=yourGIIN
+FATCAEntityReceiverId=theReceiverGIIN
+TaxYear=2015
+FATCAEntCommunicationTypeCd=RPT
+FileRevisionInd=false
+SenderContactEmailAddressTxt=yourEmail@yourDomain.com
 </code></pre>
 
 <p>Save and execute the script.</p>
@@ -81,14 +81,14 @@ SenderContactEmailAddressTxt = yourEmail@yourDomain.com
 
 <p>To unpack a FATCA data packet (for example, to open and read a Notification) update the following environment variables in <code>sample_unpack.sh</code>. The script <code>sample_unpack.sh</code> is a wrapper for <code>fatca_unpack.sh</code>:</p>
 
-<pre><code>FATCA_PKG_IN = theDataPacketYouReceived.zip
-MY_PRIVATE_KEYSTORE_PKCS12_IN = yourPrivateKey.p12
-MY_PRIVATE_KEYSTORE_PWD_IN = yourPrivateKeyPassword
+<pre><code>FATCA_PKG_IN=theDataPacketYouReceived.zip
+MY_PRIVATE_KEYSTORE_PKCS12_IN=yourPrivateKey.p12
+MY_PRIVATE_KEYSTORE_PWD_IN=yourPrivateKeyPassword
 </code></pre>
 
 <p>As an option, you can also validate the sender's signature:</p>
 
-<pre><code>SENDER_PUBLIC_CERT_IN = theSenderPublic.cer
+<pre><code>SENDER_PUBLIC_CERT_IN=theSenderPublic.cer
 </code></pre>
 
 <p>Save and execute the script.</p>
